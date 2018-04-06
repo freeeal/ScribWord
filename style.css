@@ -61,6 +61,7 @@ a:hover {
   text-align: center;
   color: #777;
   visibility: hidden;
+  margin-top: 20px;
 }
 #results {
   font-size: 14px;
