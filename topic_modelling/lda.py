@@ -39,8 +39,11 @@ print("LDA Model:")
 print_topics(lda_model, vectorizer)
 print("=" * 20)
 
-text = "I haven't played baseball in a long while. I used to play for my sunday league with a small team, but I got injured."
+text = "I haven't played baseball in a long while. I used to play baseball for my sunday league with a small team, but I got injured."
 print(text,"\n")
+text_vectorized = vectorizer.transform([text])
+print(text_vectorized)
+print(text_vectorized.shape)
 x = lda_model.transform(vectorizer.transform([text]))[0]
 top_topic = np.argmax(np.array(x))
 print("Top topic (#{}):".format(top_topic), topic_list[top_topic],"\n")
