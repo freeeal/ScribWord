@@ -18,17 +18,12 @@ def read_in():
     return json.loads(lines[0])
 
 def main():
-    #get our data as an array from read_in()
-    text = read_in()
-    # text = "Hello my name is Paul"
-    # print(text)
-    # text = "I haven't played baseball in a long while. I used to play baseball for my sunday league with a small team, but I got injured."
+    text = read_in()    # read in the transcribed speech
     try:
         top_topic = TopicModelling().test_lda(text)
         print("Top topic (#{}):".format(top_topic[0]), top_topic[1], "\n")
     except Exception as ex:
         print (ex)
-        # import traceback; traceback.print_exc()
 
 
 #start process
