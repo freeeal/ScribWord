@@ -70,9 +70,3 @@ print(text_vectorized)
 # doc_topic = model.transform(X)
 doc_topic = model.fit_transform(text_vectorized)
 print(doc_topic)
-# for i in range(9):
-#     # print("top topic: {} Document: {}".format(doc_topic[i].argmax(), ', '.join(np.array(vocab)[list(reversed(X[i,:].argsort()))[0:5]])))
-
-
-# x = model.fit_transform(vectorizer.transform([text]))[0]
-# print(x)
