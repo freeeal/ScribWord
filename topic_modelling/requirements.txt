@@ -4,3 +4,5 @@ pyLDAvis==2.1.1
 wikiapi==1.2.5
 numpy
 guidedlda
+pickle
+

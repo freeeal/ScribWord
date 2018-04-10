@@ -23,19 +23,19 @@ app.post('/analyze', (req, res) => {
 
   // spawn child_process to run topic modeling script
   let spawn = child_process.spawn;
-        var py  = spawn('python', ['compute_input.py']);
-        var data = [1,2,3,4,5,6,7,8,9];
-        var dataString = '';
+  var py  = spawn('python3', ['topic_modelling/compute_input.py']);
+  var data = [1,2,3,4,5,6,7,8,9];
+  var dataString = '';
 
-  py.stdout.on('data', function(data){
-    dataString += data.toString();
+  py.stdout.on('data', function(response){
+    dataString += response.toString();
   });
   py.stdout.on('end', function(){
     console.log('Sum of numbers =', dataString);
-    res.send(dataString);
+    res.send(dataString); // send result as string back to frontend
   });
 
-  py.stdin.write(JSON.stringify(data));
+  py.stdin.write(JSON.stringify(conversationTranscript.text));
   py.stdin.end();
 
   // fs.readFile('data.json', 'utf8', function readFileCallback(err, data){
@@ -47,8 +47,6 @@ app.post('/analyze', (req, res) => {
   //       json = JSON.stringify(obj); //convert it back to json
   //       fs.writeFile('data.json', json, 'utf8', callback); // write it back
   // }});
-
-  // send result as string back to frontend
 });
 
 // 404 route
