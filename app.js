@@ -16,6 +16,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.get('/', (req, res) => res.sendFile('index.html', { root: path.join(__dirname, '') }));
+app.get('/history', (req, res) => res.sendFile('history.html', { root: path.join(__dirname, '') }));
 
 app.post('/analyze', (req, res) => {
   console.log(req.body);

@@ -19,10 +19,10 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="/">Create Conversation <span class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link" href="/history">Past Conversations</a>
           </li>
         </ul>
@@ -47,41 +47,8 @@
          Upgrade to <a href="//www.google.com/chrome">Chrome</a>
          version 25 or later.</p>
     </div>
-    <div class="right">
-      <button id="start_button" onclick="startButton(event)">
-        <img id="start_img" src="/img/mic.gif" alt="Start"></button>
-    </div>
-    <div id="results">
-      <span id="final_span" class="final"></span>
-      <span id="interim_span" class="interim"></span>
-      <p>
-    </div>
-    <div class="center">
-      <div class="sidebyside" style="text-align:right">
-        <button id="copy_button" class="button" onclick="copyButton()">
-          Copy and Paste</button>
-        <div id="copy_info" class="info">
-          Press Control-C to copy text.<br>(Command-C on Mac.)
-        </div>
-      </div>
-      <div class="sidebyside">
-        <button id="save_transcript_button" class="button" onclick="saveTranscript()">
-          Save & Analyze Transcript</button>
-        <div id="conversation_info" class="info">
-          Complete.<br>
-        </div>
-      </div>
-      <p>
-      <div id="div_language">
-        <select id="select_language" onchange="updateCountry()"></select>
-        &nbsp;&nbsp;
-        <select id="select_dialect"></select>
-      </div>
-      <div id="topic_model_results">
-      </div>
-    </div>
 
-    <script src="/js/index.js"></script>
+    <!-- <script src="/js/index.js"></script> -->
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
