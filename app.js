@@ -2,21 +2,25 @@ const express = require('express');
 const bodyParser = require('body-parser')
 const path = require('path');
 const child_process = require('child_process');
-// const fs = require('fs');
+const fs = require('fs');
+
+const historicalData = require('./data.json');
 
 const app = express();
 
 // handle static files
 app.use(express.static(path.join(__dirname, 'public')));
 
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
-
-// parse application/json
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
 
 app.get('/', (req, res) => res.sendFile('index.html', { root: path.join(__dirname, '') }));
 app.get('/history', (req, res) => res.sendFile('history.html', { root: path.join(__dirname, '') }));
+
+app.get('/getHistoricalData', (req, res) => {
+  console.log(historicalData)
+  res.json(historicalData);
+});
 
 app.post('/analyze', (req, res) => {
   console.log(req.body);
@@ -39,15 +43,20 @@ app.post('/analyze', (req, res) => {
   py.stdin.write(JSON.stringify(conversationTranscript.text));
   py.stdin.end();
 
-  // fs.readFile('data.json', 'utf8', function readFileCallback(err, data){
-  //     if (err){
-  //         console.log(err);
-  //     } else {
-  //       obj = JSON.parse(data); //now its an object
-  //       obj.table.push(newConversation); //add some data
-  //       json = JSON.stringify(obj); //convert it back to json
-  //       fs.writeFile('data.json', json, 'utf8', callback); // write it back
-  // }});
+  fs.readFile('data.json', 'utf8', function readFileCallback(err, data) {
+    if (err){
+        console.log(err);
+    } else {
+      obj = JSON.parse(data); //now its an object
+      obj[conversationTranscript.dateTime] = conversationTranscript.text; //add data
+      json = JSON.stringify(obj); //convert it back to json
+      fs.writeFile('data.json', json, 'utf8', function (err) {
+        if (err) {
+          return console.log(err);
+        }
+        console.log("The file was saved!");
+      }); // write it back
+  }});
 });
 
 // 404 route
