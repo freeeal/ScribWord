@@ -49,7 +49,13 @@ app.post('/analyze', (req, res) => {
         console.log(err);
     } else {
       obj = JSON.parse(newData); //now its an object
-      obj[conversationTranscript.dateTime] = conversationTranscript.text; //add data
+      obj['conversations'].push(
+        {
+          "dateTime": conversationTranscript.dateTime,
+          "text": conversationTranscript.text
+        }
+      )
+      // obj[conversationTranscript.dateTime] = ; //add data
       json = JSON.stringify(obj); //convert it back to json
       fs.writeFile('data.json', json, 'utf8', function (err) {
         if (err) {
