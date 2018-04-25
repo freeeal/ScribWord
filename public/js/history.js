@@ -4,9 +4,9 @@ function loadData() {
     .then(response => response.json())
     .then(json => {
       console.log(json)
-      historicalData = json
+      historicalDataArr = json['conversations'];
       let feed = document.getElementById('history-feed');
-      for (let dateTime in historicalData) {
+      historicalDataArr.forEach((obj) => {
         let col = document.createElement('div');
         col.className = 'col-sm-6';
         feed.appendChild(col);
@@ -21,15 +21,22 @@ function loadData() {
 
         let cardTitle = document.createElement('h5');
         cardTitle.className = 'card-title';
-        cardTitle.innerHTML = new Date(parseInt(dateTime));
+        cardTitle.innerHTML = new Date(parseInt(obj['dateTime']));
         cardBody.appendChild(cardTitle);
 
         let cardText = document.createElement('p');
         cardText.className = 'card-text';
-        cardText.innerHTML = historicalData[dateTime];
+        cardText.innerHTML = obj['text'];
         cardBody.appendChild(cardText);
 
         // append topics
-      }
+        obj['topics'].forEach((topic) => {
+          let cardTopic = document.createElement('a');
+          cardTopic.className = 'btn btn-primary';
+          cardTopic.innerHTML = topic;
+          cardBody.appendChild(cardTopic)
+        });
+
+      });
     });
 }
