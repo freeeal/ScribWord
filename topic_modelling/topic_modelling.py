@@ -1,7 +1,7 @@
 import numpy as np
 
 from sklearn.externals import joblib
- 
+
 class TopicModelling:
     def __init__(self, n_topics=10, vectorizer_file='vectorize_on_brown.pkl', lda_file='lda_model.pkl'):
         self.n_topics = n_topics
@@ -42,8 +42,3 @@ class TopicModelling:
 # gov_text = "The state government may have a new leading political party this election. The people need a new leader."
 
 # texts = [sports_text, biz_text, gov_text]
-
-# text = "Chemical warfare in Syria do I need to see more."
-text = "The proposal that you are making is completely new, vis-à-vis the conversations our two teams have been having. But I have gathered this from the position that you have taken in terms of trade. I think we have the route to continue having balanced trade between both nations. And frankly, to tell you the truth Mr. President, I feel quite surprised about this new proposal that you are making because it is different from the discussion that both of our teams have been holding. ÍEnrique, if I can interrupt – this is not a new proposal. This is what I have been saying for a year and a half on the campaign trail. I have been telling this to every group of 50,000 people or 25,000 people – because no one got people in their rallies as big as I did. But I have been saying I wanted to tax people that treated us unfairly at the border, and Mexico is treating us unfairly. Now, this is different from what Luis and Jared have been talking about. But this was not a new proposal – this is the old proposal. This was the proposal I wanted. But they say they can come up with some other idea, and that is fine if they want to try it out. But I got elected on this proposal – this won me the election, along with military and healthcare. So this is not a new proposal this is been here for a year and half."
-out = TopicModelling().test_lda(text)
-print("\n",out)

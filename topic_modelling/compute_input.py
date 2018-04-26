@@ -18,10 +18,11 @@ def read_in():
     return json.loads(lines[0])
 
 def main():
+    # print('blah')
     text = read_in()    # read in the transcribed speech
     try:
         top_topic = TopicModelling().test_lda(text)
-        print("Top topic (#{}):".format(top_topic), "\n")
+        print("{}: {}".format(top_topic[0],top_topic[1]), "\n")
     except Exception as ex:
         print (ex)
 

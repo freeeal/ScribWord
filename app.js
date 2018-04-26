@@ -37,7 +37,6 @@ app.post('/analyze', (req, res) => {
     dataString += response.toString();
   });
   py.stdout.on('end', function(){
-    // console.log('Sum of numbers =', dataString);
     res.send(dataString); // send result as string back to frontend
   });
 
