@@ -38,31 +38,32 @@ app.post('/analyze', (req, res) => {
   });
   py.stdout.on('end', function(){
     res.send(dataString); // send result as string back to frontend
+
+    fs.readFile('data.json', 'utf8', function readFileCallback(err, newData) {
+      if (err){
+          console.log(err);
+      } else {
+        obj = JSON.parse(newData); //now its an object
+        obj['conversations'].push(
+          {
+            "dateTime": conversationTranscript.dateTime,
+            "text": conversationTranscript.text,
+            "topics": [ dataString.split(":")[0] ]
+          }
+        )
+        // obj[conversationTranscript.dateTime] = ; //add data
+        json = JSON.stringify(obj); //convert it back to json
+        fs.writeFile('data.json', json, 'utf8', function (err) {
+          if (err) {
+            return console.log(err);
+          }
+          console.log("The file was saved!");
+        }); // write it back
+    }});
   });
 
   py.stdin.write(JSON.stringify(conversationTranscript.text));
   py.stdin.end();
-
-  fs.readFile('data.json', 'utf8', function readFileCallback(err, newData) {
-    if (err){
-        console.log(err);
-    } else {
-      obj = JSON.parse(newData); //now its an object
-      obj['conversations'].push(
-        {
-          "dateTime": conversationTranscript.dateTime,
-          "text": conversationTranscript.text
-        }
-      )
-      // obj[conversationTranscript.dateTime] = ; //add data
-      json = JSON.stringify(obj); //convert it back to json
-      fs.writeFile('data.json', json, 'utf8', function (err) {
-        if (err) {
-          return console.log(err);
-        }
-        console.log("The file was saved!");
-      }); // write it back
-  }});
 });
 
 // 404 route
