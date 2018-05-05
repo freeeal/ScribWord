@@ -22,7 +22,7 @@ def main():
     text = read_in()    # read in the transcribed speech
     try:
         top_topic = TopicModelling().test_lda(text)
-        print("{}: {}".format(top_topic[0],top_topic[1]), "\n")
+        print("{}: {}".format(top_topic[0],dict(top_topic[1])), "\n")
     except Exception as ex:
         print (ex)
 

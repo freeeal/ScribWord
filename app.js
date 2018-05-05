@@ -48,7 +48,8 @@ app.post('/analyze', (req, res) => {
           {
             "dateTime": conversationTranscript.dateTime,
             "text": conversationTranscript.text,
-            "topics": [ dataString.split(":")[0] ]
+            "topics": [ dataString.split(":")[0] ],
+            "keywords": [ JSON.parse(dataString.substr(dataString.indexOf(' ')+1).trim().replace(/'/g, '"')) ]
           }
         )
         // obj[conversationTranscript.dateTime] = ; //add data
