@@ -106,3 +106,7 @@ a:hover {
   stroke: #000;
   shape-rendering: crispEdges;
 }
+
+.btn {
+  margin: 0.5em;
+}
