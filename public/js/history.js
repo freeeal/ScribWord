@@ -18,6 +18,20 @@ function reloadFilteredTopics(topic) {
   }
 }
 
+function reloadFilterButtons(topic) {
+  let all_filter_buttons = document.querySelectorAll(".topic-btn");
+  all_filter_buttons.forEach((button) => {
+    t = button.innerHTML;
+    if (t==topic){
+      button.classList.remove('btn-secondary');
+      button.classList.add('btn-primary');
+    }else{
+      button.classList.remove('btn-primary');
+      button.classList.add('btn-secondary');
+    }
+  });
+}
+
 function loadData() {
   let historicalData;
   fetch('/getHistoricalData')
@@ -73,10 +87,11 @@ function loadData() {
       // load initial navbar
       topics_arr.forEach((topic) => {
         let filterButton = document.createElement('button');
-        filterButton.className = "btn btn-primary";
+        filterButton.className = "btn btn-secondary topic-btn";
         filterButton.innerHTML = topic;
         filterButton.addEventListener("click", function() {
           reloadFilteredTopics(topic);
+          reloadFilterButtons(topic);
         });
         navbar_element.appendChild(filterButton);
       })
