@@ -18,20 +18,6 @@ function reloadFilteredTopics(topic) {
   }
 }
 
-function reloadFilterButtons(topic) {
-  let all_filter_buttons = document.querySelectorAll(".topic-btn");
-  all_filter_buttons.forEach((button) => {
-    t = button.innerHTML;
-    if (t==topic){
-      button.classList.remove('btn-secondary');
-      button.classList.add('btn-primary');
-    }else{
-      button.classList.remove('btn-primary');
-      button.classList.add('btn-secondary');
-    }
-  });
-}
-
 function loadData() {
   let historicalData;
   fetch('/getHistoricalData')
@@ -87,11 +73,10 @@ function loadData() {
       // load initial navbar
       topics_arr.forEach((topic) => {
         let filterButton = document.createElement('button');
-        filterButton.className = "btn btn-secondary topic-btn";
+        filterButton.className = "btn btn-primary";
         filterButton.innerHTML = topic;
         filterButton.addEventListener("click", function() {
           reloadFilteredTopics(topic);
-          reloadFilterButtons(topic);
         });
         navbar_element.appendChild(filterButton);
       })
@@ -120,60 +105,75 @@ function toggleKeywordGraph(cardBody, keywordArr) {
       .orient("left")
       .ticks(10);
 
-  // add the SVG element
-  var svg = d3.select(cardBody).append("svg")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-      .attr("transform",
-            "translate(" + margin.left + "," + margin.top + ")");
-
-  // load the data
-  let keywordObj = keywordArr[0];
-  let dataArray = [];
-
-  for (let keyword in keywordObj) {
-    dataArray.push(
-      {
-        "Keyword": keyword,
-        "Strength": keywordObj[keyword]
-      }
-    )
+  // console.log(cardBody.childNodes)
+  // toggle functionality
+  let svgExists = false;
+  for (i = 0; i < cardBody.childNodes.length; i++) {
+    let childNode = cardBody.childNodes[i];
+    if (childNode.nodeName === "svg") {
+      svgExists = true;
+    }
   }
 
-  // scale the range of the data
-  x.domain(dataArray.map(function(d) { return d.Keyword; }));
-  y.domain([0, d3.max(dataArray, function(d) { return d.Strength; })]);
+  if (!svgExists) {
+    // add the SVG element
+    var svg = d3.select(cardBody).append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+        .attr("transform",
+              "translate(" + margin.left + "," + margin.top + ")");
 
-  // add axis
-  svg.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0," + height + ")")
-      .call(xAxis)
-    .selectAll("text")
-      .style("text-anchor", "end")
-      .attr("dx", "-.8em")
-      .attr("dy", "-.55em")
-      .attr("transform", "rotate(-90)" )
+    // load the data
+    let keywordObj = keywordArr[0];
+    let dataArray = [];
 
-  svg.append("g")
-      .attr("class", "y axis")
-      .call(yAxis)
-    .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 0 - margin.left)
-      .attr("x",0 - (height / 2))
-      .attr("dy", ".71em")
-      .style("text-anchor", "middle")
-      .text("Keyword Strength");
+    for (let keyword in keywordObj) {
+      dataArray.push(
+        {
+          "Keyword": keyword,
+          "Strength": keywordObj[keyword]
+        }
+      )
+    }
 
-  // Add bar chart
-  svg.selectAll("bar")
-      .data(dataArray)
-    .enter().append("rect")
-      .attr("class", "bar")
-      .attr("x", function(d) { return x(d.Keyword); })
-      .attr("width", x.rangeBand())
-      .attr("y", function(d) { return y(d.Strength); })
-      .attr("height", function(d) { return height - y(d.Strength); });
+    // scale the range of the data
+    x.domain(dataArray.map(function(d) { return d.Keyword; }));
+    y.domain([0, d3.max(dataArray, function(d) { return d.Strength; })]);
+
+    // add axis
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis)
+      .selectAll("text")
+        .style("text-anchor", "end")
+        .attr("dx", "-.8em")
+        .attr("dy", "-.55em")
+        .attr("transform", "rotate(-90)" )
+
+    svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis)
+      .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 - margin.left)
+        .attr("x",0 - (height / 2))
+        .attr("dy", ".71em")
+        .style("text-anchor", "middle")
+        .text("Keyword Strength");
+
+    // Add bar chart
+    svg.selectAll("bar")
+        .data(dataArray)
+      .enter().append("rect")
+        .attr("class", "bar")
+        .attr("x", function(d) { return x(d.Keyword); })
+        .attr("width", x.rangeBand())
+        .attr("y", function(d) { return y(d.Strength); })
+        .attr("height", function(d) { return height - y(d.Strength); });
+  } else {
+    cardBody.removeChild(cardBody.lastChild);
+  }
+
 }
