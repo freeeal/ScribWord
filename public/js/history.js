@@ -73,8 +73,9 @@ function loadData() {
           });
           cardTopic.innerHTML = topic;
           cardBody.appendChild(cardTopic);
-          if (!topics_arr.indexOf(topic) > -1) {
+          if (!topics_arr.includes(topic)) {
             topics_arr.push(topic);
+            console.log(topics_arr)
           }
           // set card id to topic -- for filtering
           card.id = topic;
