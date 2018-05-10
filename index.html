@@ -12,7 +12,7 @@
   </head>
   <body>
     <script src="http://d3js.org/d3.v3.min.js"></script>
-    
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <!-- Navbar content -->
       <a class="navbar-brand" href="/">ScribWord</a>
@@ -32,8 +32,8 @@
     </nav>
 
     <div id="info">
-      <p id="info_start">Click on the microphone icon to start recording.</p>
-      <p id="info_speak_now">Click on the microphone icon to stop recording.</p>
+      <p id="info_start">Click the microphone icon to start recording.</p>
+      <p id="info_speak_now">Click the microphone icon to stop recording.</p>
       <p id="info_no_speech">No speech was detected. You may need to adjust your
         <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
           microphone settings</a>.</p>
@@ -49,8 +49,8 @@
          Upgrade to <a href="//www.google.com/chrome">Chrome</a>
          version 25 or later.</p>
     </div>
-    <div class="right">
-      <button id="start_button" onclick="startButton(event)">
+    <div class="center">
+      <button id="start_button" class="btn btn-danger active" onclick="startButton(event)">
         <img id="start_img" src="/img/mic.gif" alt="Start"></button>
     </div>
     <div id="results">
