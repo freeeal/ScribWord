@@ -47,7 +47,7 @@ a:hover {
 }
 .sidebyside {
   display: inline-block;
-  width: 45%;
+  /* width: 45%; */
   min-height: 40px;
   text-align: left;
   vertical-align: top;
@@ -70,6 +70,9 @@ a:hover {
   padding: 15px;
   text-align: left;
   min-height: 150px;
+}
+#div_language {
+  display: none;
 }
 /* temporary for prototype studio */
 #topic_model_results {

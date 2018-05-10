@@ -370,8 +370,8 @@ function showButtons(style) {
     return;
   }
   current_style = style;
-  copy_button.style.display = style;
+  // copy_button.style.display = style;
   save_transcript_button.style.display = style;
-  copy_info.style.display = 'none';
+  // copy_info.style.display = 'none';
   conversation_info.style.display = 'none';
 }
