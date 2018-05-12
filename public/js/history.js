@@ -3,11 +3,10 @@ let topics_arr = [];
 
 function reloadFilteredTopics(topic) {
   let all_card_elements = document.getElementsByClassName('card');
-  console.log(all_card_elements)
   for (i = 0; i < all_card_elements.length; i++) {
     let thisEle = all_card_elements[i];
     if (topic !== 'all') {
-      if (thisEle.id === topic) {
+      if (thisEle.id.includes(topic)) {
         thisEle.style.display = "block";
       } else {
         thisEle.style.display = "none";
@@ -46,6 +45,7 @@ function loadData() {
         feed.appendChild(col);
 
         let card = document.createElement('div');
+        card.id = '';
         card.className = 'card bg-light';
         col.appendChild(card);
 
@@ -64,21 +64,22 @@ function loadData() {
         cardBody.appendChild(cardText);
 
         // append topics
-        obj['topics'].forEach((topic) => {
+        obj['topTopics'].forEach((topic, i) => {
           let cardTopic = document.createElement('button');
           cardTopic.className = 'btn btn-primary';
 
           cardTopic.addEventListener("click", function() {
-            toggleKeywordGraph(cardBody, obj['keywords']);
+            toggleKeywordGraph(cardBody, obj['keywords'][i]);
           });
           cardTopic.innerHTML = topic;
+
           cardBody.appendChild(cardTopic);
           if (!topics_arr.includes(topic)) {
             topics_arr.push(topic);
             console.log(topics_arr)
           }
           // set card id to topic -- for filtering
-          card.id = topic;
+          card.id += topic + ' ';
         });
 
         let linebreak = document.createElement("br");
@@ -101,7 +102,7 @@ function loadData() {
 }
 
 // function to toggle keyword bar chart of selected topic
-function toggleKeywordGraph(cardBody, keywordArr) {
+function toggleKeywordGraph(cardBody, keywordObj) {
   // set the dimensions of the canvas
   var margin = {top: 20, right: 20, bottom: 70, left: 52},
       width = 600 - margin.left - margin.right,
@@ -142,7 +143,6 @@ function toggleKeywordGraph(cardBody, keywordArr) {
               "translate(" + margin.left + "," + margin.top + ")");
 
     // load the data
-    let keywordObj = keywordArr[0];
     let dataArray = [];
 
     for (let keyword in keywordObj) {
@@ -191,15 +191,16 @@ function toggleKeywordGraph(cardBody, keywordArr) {
         .attr("height", function(d) { return height - y(d.Strength); });
   } else {
     cardBody.removeChild(cardBody.lastChild);
+    toggleKeywordGraph(cardBody, keywordObj)
   }
 
 }
 
 // processSpeech(transcript);
 //  Is called anytime speech is recognized by the Web Speech API
-// Input: 
+// Input:
 //    transcript, a string of possibly multiple words that were recognized
-// Output: 
+// Output:
 //    processed, a boolean indicating whether the system reacted to the speech or not
 var processSpeech = function(transcript) {
   // Helper function to detect if any commands appear in a string
