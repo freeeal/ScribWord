@@ -223,21 +223,26 @@ function createBarChart(resData) {
             "translate(" + margin.left + "," + margin.top + ")");
 
   // load the data
-  let keywordObj = JSON.parse(resData.substr(resData.indexOf(' ')+1).trim().replace(/'/g, '"'))
+  // let keywordObj = JSON.parse(resData.substr(resData.indexOf(' ')+1).trim().replace(/'/g, '"'))
+  console.log('in index', resData)
+  let topics = resData.topics
+  console.log(topics)
+  let likelihoods = resData.likelihoods
+  console.log(likelihoods)
   let dataArray = []
 
-  for (let keyword in keywordObj) {
+  for (let i=0; i<topics.length; i++) {
     dataArray.push(
       {
-        "Keyword": keyword,
-        "Strength": keywordObj[keyword]
+        "Topic": topics[i],
+        "Likelihood": likelihoods[i]
       }
     )
   }
 
   // scale the range of the data
-  x.domain(dataArray.map(function(d) { return d.Keyword; }));
-  y.domain([0, d3.max(dataArray, function(d) { return d.Strength; })]);
+  x.domain(dataArray.map(function(d) { return d.Topic; }));
+  y.domain([0, d3.max(dataArray, function(d) { return d.Likelihood; })]);
 
   // add axis
   svg.append("g")
@@ -259,17 +264,17 @@ function createBarChart(resData) {
       .attr("x",0 - (height / 2))
       .attr("dy", ".71em")
       .style("text-anchor", "middle")
-      .text("Keyword Strength");
+      .text("Topic Likelihood");
 
   // Add bar chart
   svg.selectAll("bar")
       .data(dataArray)
     .enter().append("rect")
       .attr("class", "bar")
-      .attr("x", function(d) { return x(d.Keyword); })
+      .attr("x", function(d) { return x(d.Topic); })
       .attr("width", x.rangeBand())
-      .attr("y", function(d) { return y(d.Strength); })
-      .attr("height", function(d) { return height - y(d.Strength); });
+      .attr("y", function(d) { return y(d.Likelihood); })
+      .attr("height", function(d) { return height - y(d.Likelihood); });
 }
 
 function createConversation() {
@@ -285,13 +290,14 @@ function createConversation() {
     .then(function (response) {
       console.log(response.data);
       // append response to topic_model_results div
-      topic_model_results.innerHTML = "Keyword Strengths for Top Topic of " + response.data.split(":")[0];
+      topic_model_results.innerHTML = "Topics Likelihoods";
       let linebreak = document.createElement("br");
       topic_model_results.appendChild(linebreak);
 
-      // createBarChart(response.data);
+      createBarChart(response.data);
     })
     .catch(function (error) {
+      console.log(error)
       if (error.response) {
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx

@@ -19,8 +19,8 @@ def read_in():
 
 def main():
     # print('blah')
-    # text = read_in()    # read in the transcribed speech
-    text = "Suppose you follow the NBA I'm actually a big basketball fan myself but I'm not a fan of any team in the league right now really why is that I didn't grow up playing basketball do you follow the NBA but I used to follow the NBA before I came to the US and surely I used to follow the lord when I was in school but right now"
+    text = read_in()    # read in the transcribed speech
+    # text = "Suppose you follow the NBA I'm actually a big basketball fan myself but I'm not a fan of any team in the league right now really why is that I didn't grow up playing basketball do you follow the NBA but I used to follow the NBA before I came to the US and surely I used to follow the lord when I was in school but right now"
     try:
         model_out = TopicModelling().test_lda(text)
         # print(model_out)

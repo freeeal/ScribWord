@@ -37,18 +37,24 @@ app.post('/analyze', (req, res) => {
     dataString += response.toString();
   });
   py.stdout.on('end', function(){
-    res.send(dataString); // send result as string back to frontend
 
     fs.readFile('data.json', 'utf8', function readFileCallback(err, newData) {
       if (err){
           console.log(err);
       } else {
         obj = JSON.parse(newData); //now its an object
+        console.log(dataString)
         let splitData = dataString.split('\n');
+        console.log(splitData)
         let topTopics = splitData.slice(0,splitData.length-3);
-        let allTopics = JSON.parse(splitData[2].split(': ')[1].replace(/'/g, '"'));
-        let likelihoods = JSON.parse(splitData[3].split(': ')[1].replace(/'/g, '"'));
-        // console.log("LL:", likelihoods);
+        let allTopics = JSON.parse(splitData.slice(-3)[0].split(': ')[1].replace(/'/g, '"'));
+        let likelihoods = JSON.parse(splitData.slice(-2)[0].split(': ')[1].replace(/'/g, '"'));
+
+        res.send({
+          topics: allTopics,
+          likelihoods: likelihoods
+        }); // send result to frontend
+
         let topics = [];
         let keywords = [];
         topTopics.forEach(function(topic){
@@ -56,10 +62,8 @@ app.post('/analyze', (req, res) => {
           // console.log(split_topic[0].trim().replace(/'/g, '"'));
           topic_name = splitTopic[0].split(': ')[1];
           topics.push(topic_name);
-          console.log(topics);
           keyword_dict = splitTopic[1].split('Keywords: ')[1];
           keywords.push(JSON.parse(keyword_dict.replace(/'/g, '"')));
-          console.log(keywords);
         });
         obj['conversations'].unshift(
           {
@@ -71,7 +75,7 @@ app.post('/analyze', (req, res) => {
             "likelihoods": likelihoods
           }
         )
-        // obj[conversationTranscript.dateTime] = ; //add data
+
         json = JSON.stringify(obj); //convert it back to json
         fs.writeFile('data.json', json, 'utf8', function (err) {
           if (err) {
