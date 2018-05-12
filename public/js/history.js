@@ -94,6 +94,7 @@ function loadData() {
           reloadFilteredTopics(topic);
           reloadFilterButtons(topic);
         });
+        filterButton.id = "topic" + topic;
         navbar_element.appendChild(filterButton);
       })
   });
@@ -193,3 +194,41 @@ function toggleKeywordGraph(cardBody, keywordArr) {
   }
 
 }
+
+// processSpeech(transcript);
+//  Is called anytime speech is recognized by the Web Speech API
+// Input: 
+//    transcript, a string of possibly multiple words that were recognized
+// Output: 
+//    processed, a boolean indicating whether the system reacted to the speech or not
+var processSpeech = function(transcript) {
+  // Helper function to detect if any commands appear in a string
+  console.log("processing...");
+  var userSaid = function(str, commands) {
+    for (var i = 0; i < commands.length; i++) {
+      if (str.indexOf(commands[i]) > -1)
+        return true;
+    }
+    return false;
+  };
+
+  var processed = false;
+  console.log(transcript);
+
+  topics_arr.forEach((topic) => {
+    console.log(transcript)
+    if (userSaid(transcript.toLowerCase(),['display ' + topic.toLowerCase()])) {
+      console.log('displaying ' + topic)
+      document.getElementById('topic' + topic).click();
+      processed = true;
+    }
+  })
+
+  if (userSaid(transcript.toLowerCase(),['display all'])) {
+    console.log('displaying All')
+    document.getElementById('topicAll').click();
+    processed = true;
+  }
+
+  return processed;
+};
