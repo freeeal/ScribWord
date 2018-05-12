@@ -36,16 +36,23 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div id="filter-navbar" class="navbar-nav">
           <!-- append topic options -->
-          <button class="btn btn-dark" onclick="reloadFilteredTopics('all'); reloadFilterButtons('all')">Show All Topics</button>
+          <button id="topicAll" class="btn btn-dark" onclick="reloadFilteredTopics('all'); reloadFilterButtons('all')">Display All Topics</button>
         </div>
       </div>
+      <p>Say "Display All" to show all topics, or <br />Say "Display [Topic]" to filter by topic.</p>
     </nav>
+
+    <div id="speechDebug"></div>
 
     <div id="history-feed">
       <!-- append past conversations -->
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+
     <script src="/js/history.js"></script>
+    <script src="/js/setupSpeech.js"></script>
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
