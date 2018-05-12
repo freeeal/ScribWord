@@ -289,7 +289,7 @@ function createConversation() {
       let linebreak = document.createElement("br");
       topic_model_results.appendChild(linebreak);
 
-      createBarChart(response.data);
+      // createBarChart(response.data);
     })
     .catch(function (error) {
       if (error.response) {

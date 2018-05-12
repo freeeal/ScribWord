@@ -27,9 +27,18 @@ class TopicModelling:
         topic_dict = self.log_topics(self.lda_model, self.vectorizer)
         # print(topic_dict)
         text_vectorized = self.vectorizer.transform([text])
-        x = self.lda_model.transform(text_vectorized)[0]
-        top_topic = np.argmax(np.array(x))
-        return list(topic_dict.items())[top_topic]
+        topic_likelihoods = self.lda_model.transform(text_vectorized)[0]
+        # print("LDA result: ", topic_likelihoods)
+        topics_sorted = np.argsort(np.array(topic_likelihoods))[::-1]
+        # print(topics_sorted.tolist())
+        top_topics = [list(topic_dict.keys())[topic] for topic in topics_sorted.tolist() if topic_likelihoods[topic] >= 0.2]
+        if len(top_topics) > 1 and 'Ambiguous' in top_topics:
+            top_topics.remove('Ambiguous')
+        # print(top_topics)
+        # top_topic = np.argmax(np.array(topic_likelihoods))
+        output_topics = [(topic, topic_dict[topic]) for topic in top_topics]
+        # print(output,"\n")
+        return output_topics, list(topic_dict.keys()), topic_likelihoods.tolist()
 
 
 # print("LDA Model:")

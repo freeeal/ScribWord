@@ -44,12 +44,31 @@ app.post('/analyze', (req, res) => {
           console.log(err);
       } else {
         obj = JSON.parse(newData); //now its an object
+        let splitData = dataString.split('\n');
+        let topTopics = splitData.slice(0,splitData.length-3);
+        let allTopics = JSON.parse(splitData[2].split(': ')[1].replace(/'/g, '"'));
+        let likelihoods = JSON.parse(splitData[3].split(': ')[1].replace(/'/g, '"'));
+        // console.log("LL:", likelihoods);
+        let topics = [];
+        let keywords = [];
+        topTopics.forEach(function(topic){
+          let splitTopic = topic.split(';');
+          // console.log(split_topic[0].trim().replace(/'/g, '"'));
+          topic_name = splitTopic[0].split(': ')[1];
+          topics.push(topic_name);
+          console.log(topics);
+          keyword_dict = splitTopic[1].split('Keywords: ')[1];
+          keywords.push(JSON.parse(keyword_dict.replace(/'/g, '"')));
+          console.log(keywords);
+        });
         obj['conversations'].unshift(
           {
             "dateTime": conversationTranscript.dateTime,
             "text": conversationTranscript.text,
-            "topics": [ dataString.split(":")[0] ],
-            "keywords": [ JSON.parse(dataString.substr(dataString.indexOf(' ')+1).trim().replace(/'/g, '"')) ]
+            "topTopics": topics,
+            "keywords": keywords,
+            "allTopics": allTopics,
+            "likelihoods": likelihoods
           }
         )
         // obj[conversationTranscript.dateTime] = ; //add data
