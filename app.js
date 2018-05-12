@@ -44,7 +44,7 @@ app.post('/analyze', (req, res) => {
           console.log(err);
       } else {
         obj = JSON.parse(newData); //now its an object
-        obj['conversations'].push(
+        obj['conversations'].unshift(
           {
             "dateTime": conversationTranscript.dateTime,
             "text": conversationTranscript.text,
