@@ -90,6 +90,9 @@ function loadData() {
         });
 
         cardBody.appendChild(compareTopicButton);
+
+        let linebreak = document.createElement("br");
+        cardBody.appendChild(linebreak);
       });
 
       // load initial navbar
@@ -195,7 +198,7 @@ function toggleKeywordGraph(cardBody, keywordObj) {
         .attr("width", x.rangeBand())
         .attr("y", function(d) { return y(d.Strength); })
         .attr("height", function(d) { return height - y(d.Strength); });
-    
+
     // Scroll svg into view
     cardBody.scrollIntoView({behavior: "smooth"});
   } else {
