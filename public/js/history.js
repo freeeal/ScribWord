@@ -195,6 +195,9 @@ function toggleKeywordGraph(cardBody, keywordObj) {
         .attr("width", x.rangeBand())
         .attr("y", function(d) { return y(d.Strength); })
         .attr("height", function(d) { return height - y(d.Strength); });
+    
+    // Scroll svg into view
+    cardBody.scrollIntoView({behavior: "smooth"});
   } else {
     console.log(cardBody.lastChild);
     cardBody.removeChild(cardBody.lastChild);
@@ -295,6 +298,9 @@ function toggleCompareGraph(cardBody, allTopics, allLikelihoods) {
         .attr("width", x.rangeBand())
         .attr("y", function(d) { return y(d.Likelihood); })
         .attr("height", function(d) { return height - y(d.Likelihood); });
+
+    // Scroll graph into view
+    cardBody.scrollIntoView({behavior: "smooth"});
   } else {
     console.log(cardBody.lastChild);
     console.log(cardBody.lastChild.id)
