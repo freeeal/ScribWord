@@ -201,7 +201,7 @@ function toggleKeywordGraph(cardBody, keywordObj) {
   } else {
     console.log(cardBody.lastChild);
     cardBody.removeChild(cardBody.lastChild);
-    toggleKeywordGraph(cardBody, keywordObj)
+    // toggleKeywordGraph(cardBody, keywordObj)
   }
 
 }
@@ -302,10 +302,10 @@ function toggleCompareGraph(cardBody, allTopics, allLikelihoods) {
     // Scroll graph into view
     cardBody.scrollIntoView({behavior: "smooth"});
   } else {
-    console.log(cardBody.lastChild);
+    console.log("last child: ", cardBody.lastChild);
     console.log(cardBody.lastChild.id)
     cardBody.removeChild(cardBody.lastChild);
-    toggleCompareGraph(cardBody, allTopics, allLikelihoods);
+    // toggleCompareGraph(cardBody, allTopics, allLikelihoods);
   }
 
 }
