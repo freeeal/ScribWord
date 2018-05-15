@@ -31,7 +31,7 @@ class TopicModelling:
         # print("LDA result: ", topic_likelihoods)
         topics_sorted = np.argsort(np.array(topic_likelihoods))[::-1]
         # print(topics_sorted.tolist())
-        top_topics = [list(topic_dict.keys())[topic] for topic in topics_sorted.tolist() if topic_likelihoods[topic] >= 0.2]
+        top_topics = [list(topic_dict.keys())[topic] for topic in topics_sorted.tolist() if topic_likelihoods[topic] >= 0.1]
         if len(top_topics) > 1 and 'Ambiguous' in top_topics:
             top_topics.remove('Ambiguous')
         # print(top_topics)
