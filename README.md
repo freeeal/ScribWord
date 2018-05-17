@@ -1,9 +1,8 @@
 # ScribWord
-============================
 > 6.835: Intelligent Multimodal User Interfaces - Final Project
 
 ### File structure
-.
+```bash
 ├── public                     # Folder with publicly available resources
 │   ├── css                     # Folder containing .css files
 │   |    ├── style.css              # Stylizes all .html files in the application
@@ -26,11 +25,12 @@
 ├── package-lock.json           # Automatically generated when npm modifies either the node_modules or package.json
 ├── package.json                # File containing all dependencies for node.js app
 └── vectorize_on_brown.pkl      ***TODO***
+```
 
 ### Instructions to run code
 
 1. Clone the repository.
-2. Install [node.js version recommended for most users here](https://nodejs.org/en/)
+2. Install [node.js version recommended for most users](https://nodejs.org/en/)
 3. Run ```npm install``` to install dependencies. This will create a `node_modules` file at the root.
 4. Install [Python 3.6](https://www.python.org/downloads/release/python-365/)
 5. Run ```pip3 install -r requirements.txt``` in ```/topic_modelling/``` to install required dependencies for topic modeling.
