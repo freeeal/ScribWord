@@ -15,7 +15,18 @@
 │   |    ├── index.js               # .js file for index.html
 │   |    ├── setupSpeech.js         # .js file for continuous speech recognition used in history.html
 ├── topic_modelling             # Folder containing topic modeling files
-***TODO***
+│   |    ├── venv               # Virtual environment for Python3
+│   |    ├── compute_input.py   # Interfaces between topic modeling backend and app.js for frontend
+│   |    ├── guided_lda.py      # One of the approaches to topic modeling. --Unused
+│   |    ├── guidedlda_model.pkl  # Pickled model of guided lda topic model --Unused
+│   |    ├── lda.py             # One of the approaches to topic modeling. --Used
+│   |    ├── requirements.txt   # Requirements for Python3
+│   |    ├── test_we.py         # Tests word embedding implementation
+│   |    ├── topic_modelling.py # Uses pretrained models to categorize input text with topics
+│   |    ├── vectorize.py       # Converts words to vectors based on training corpus
+│   |    ├── vectorize_on_brown.pkl # Pickled model of vectorizer trained on brown corpus
+│   |    ├── vectorizer.pkl     # Pickled model of vectorizer
+│   |    ├── word_embedding.py  # Attempt at using neural network for topic modeling --Unused
 ├── .gitignore                  # Lists files or types of files to ignore when committing via git
 ├── README.md             
 ├── app.js                      # Holds node.js server
@@ -24,7 +35,7 @@
 ├── index.html                  # Holds html for Create Conversations tab
 ├── package-lock.json           # Automatically generated when npm modifies either the node_modules or package.json
 ├── package.json                # File containing all dependencies for node.js app
-└── vectorize_on_brown.pkl      ***TODO***
+└── vectorize_on_brown.pkl      # Pickled model of vectorization model trained on brown corpus
 ```
 
 ### Instructions to run code
