@@ -3,7 +3,7 @@
 
 ### File structure
 ```bash
-├── public                     # Folder with publicly available resources
+├── public                      # Folder with publicly available resources
 │   ├── css                     # Folder containing .css files
 │   |    ├── style.css              # Stylizes all .html files in the application
 │   ├── img                     # Folder containing .gif files
